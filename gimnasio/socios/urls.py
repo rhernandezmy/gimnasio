@@ -20,4 +20,7 @@ urlpatterns = [
     # Actualización y eliminación de socios
     path('socios/<int:pk>/editar/', views.SocioUpdateView.as_view(), name='socio_edit'),
     path('socios/<int:pk>/eliminar/', views.SocioDeleteView.as_view(), name='socio_delete'),
+    
+     # Creación de nuevas clases (puede ser una vista basada en función o una vista genérica)
+    path('clases/nuevo/', views.clase_create, name='clase_create'),  # Si usas una vista basada en función para crear clases
 ]

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Clase</title>
+</head>
+<body>
+    <h1>Crear Nueva Clase</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Crear Clase</button>
+    </form>
+    <a href="{% url 'home' %}">Volver a la página de inicio</a>
+</body>
+</html>

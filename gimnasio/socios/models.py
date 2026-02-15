@@ -25,7 +25,27 @@ class Entrenador(models.Model):
         return f"{self.nombre} {self.apellidos}"
     
 class Clase(models.Model):
-    nombre = models.CharField(max_length=100)
+    # Definimos las opciones para el desplegable de tipo de clase
+    TIPO_CLASES = [
+        ('yoga', 'Yoga'),
+        ('pilates', 'Pilates'),
+        ('spinning', 'Spinning'),
+        ('crossfit', 'CrossFit'),
+        ('zumba', 'Zumba'),
+        ('boxeo', 'Boxeo'),
+    ]
+    
+    # Definimos los textos predeterminados para cada tipo de clase
+    DESCRIPCIONES_PREDETERMINADAS = {
+        'yoga': 'Clase de yoga para mejorar la flexibilidad y el bienestar.',
+        'pilates': 'Clase de pilates para fortalecer el core y mejorar la postura.',
+        'spinning': 'Clase de spinning para quemar calorías y mejorar la resistencia cardiovascular.',
+        'crossfit': 'Clase de crossfit para entrenar fuerza y resistencia con ejercicios variados.',
+        'zumba': 'Clase de zumba para divertirse bailando y quemar calorías al ritmo de la música.',
+        'boxeo': 'Clase de boxeo para aprender técnicas de defensa personal y mejorar la condición física.',
+    }
+    
+    nombre = models.CharField(max_length=100, choices=TIPO_CLASES)
     descripcion = models.TextField(blank=True, null=True)
     horario = models.DateTimeField()
     cupo_maximo = models.PositiveIntegerField(default=20)
@@ -41,3 +61,9 @@ class Clase(models.Model):
     
     def cupo_disponible(self):
         return self.cupo_maximo - self.socios.count()
+    
+    # Sobrescribimos el método save para asignar la descripción predeterminada según el tipo de clase
+    def save(self, *args, **kwargs):
+        if not self.descripcion:  # Si no se ha proporcionado una descripción, asignamos la predeterminada
+            self.descripcion = self.DESCRIPCIONES_PREDETERMINADAS.get(self.nombre, '')
+        super().save(*args, **kwargs)

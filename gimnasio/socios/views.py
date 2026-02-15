@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, TemplateView
-from .form import SocioForm
+from .forms import SocioForm, ClaseForm
 from .models import Clase, Socio
 
 # Crear un nuevo socio (vista basada en función)
@@ -56,3 +56,13 @@ class ClaseDetailView(DetailView):
 # Vista inicial de la web con los accesos a las diferentes secciones
 class HomeView(TemplateView):
     template_name = 'socios/home.html'
+
+def clase_create(request):
+    if request.method == 'POST':
+        form = ClaseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('clase_list')  # Redirige a la lista de clases después de crear una nueva
+    else:
+        form = ClaseForm()
+    return render(request, 'socios/clase_create.html', {'form': form})

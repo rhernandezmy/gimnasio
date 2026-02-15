@@ -1,5 +1,5 @@
 from django import forms
-from .models import Socio
+from .models import Clase, Socio
 from django.core.exceptions import ValidationError
 
 class SocioForm(forms.ModelForm):
@@ -52,4 +52,10 @@ class SocioForm(forms.ModelForm):
                 raise forms.ValidationError("Ya existe un socio con este nombre y apellidos.")
         return cleaned_data
 
-    
+class ClaseForm(forms.ModelForm):
+    class Meta:
+        model = Clase
+        fields = ['nombre', 'descripcion', 'horario', 'cupo_maximo', 'entrenador']
+        widgets = {
+            'horario': forms.DateTimeInput(attrs={'type': 'datetime-local'}),  # Para usar un selector de fecha y hora en el formulario
+        }
