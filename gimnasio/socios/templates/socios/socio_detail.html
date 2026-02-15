@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle del Socio #{{socio.id }}</title>
+</head>
+<body>
+    <h1>Detalle del Socio: #{{socio.id }}</h1>
+    <p><strong>Nombre:</strong> {{ socio.nombre }}</p>
+    <p><strong>Apellidos:</strong> {{ socio.apellidos }}</p>
+    <p><strong>Email:</strong> {{ socio.email }}</p>
+    <p><strong>Teléfono:</strong> {{ socio.telefono }}</p>
+    <p><strong>Fecha de Nacimiento:</strong> {{ socio.fecha_nacimiento }}</p>
+    <p><strong>estado:</strong> {{ socio.activo|yesno:"Activo,Inactivo" }}</p>
+
+    <p><strong>Clases Inscritas:</strong></p>
+    <ul>
+        {% for clase in socio.clases_inscritas.all %}
+            <li>{{ clase.nombre }} - {{ clase.horario }}</li>
+        {% empty %}
+            <li>No está inscrito en ninguna clase.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'socio_list' %}">Volver a la lista de socios</a>
+</body>
+</html>

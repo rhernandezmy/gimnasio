@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de la Clase</title>
+</head>
+<body>
+    <h1>Detalle de la Clase</h1>
+    <p><strong>Nombre:</strong> {{ clase.nombre }}</p>
+    <p><strong>Horario:</strong> {{ clase.horario|date:"d/m/Y H:i" }}</p>
+    <p><strong>Cupo Disponible:</strong> {{ clase.cupo_disponible }}</p>
+    <p><strong>Entrenador:</strong> {{ clase.entrenador.nombre }} {{ clase.entrenador.apellidos }}</p>
+    <p><strong>Descripción:</strong> {{ clase.descripcion }}</p>
+    <p><strong>Socios Inscritos:</strong></p>
+    <ul>
+        {% for socio in clase.socios.all %}
+            <li>#{{ socio.id }} - {{ socio.nombre }} {{ socio.apellidos }}</li>
+        {% empty %}
+            <li>No hay socios inscritos en esta clase.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'clase_list' %}">Volver a la lista de clases</a>
+</body>
+</html>
