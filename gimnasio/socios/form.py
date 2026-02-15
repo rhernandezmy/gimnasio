@@ -1,5 +1,6 @@
 from django import forms
-from .models import Socio  
+from .models import Socio
+from django.core.exceptions import ValidationError
 
 class SocioForm(forms.ModelForm):
     class Meta:

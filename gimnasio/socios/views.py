@@ -1,15 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
-
-from gimnasio.socios.form import SocioForm
+from .form import SocioForm
 from .models import Clase, Socio
+
+# Crear un nuevo socio (vista basada en función)
+def socio_create(request):
+    if request.method == 'POST':
+        form = SocioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('socio_list')  # Redirige a la lista de socios después de crear uno nuevo
+    else:
+        form = SocioForm()
+    return render(request, 'socios/socio_create.html', {'form': form})
+
+# Vista para actualizar los datos de un socio
+class SocioUpdateView(UpdateView):
+    model = Socio
+    form_class = SocioForm
+    template_name = 'socios/socio_form.html'
+    success_url = reverse_lazy('socio_list')
+    
+# Vista para eliminar un socio
+class SocioDeleteView(DeleteView):
+    model = Socio
+    template_name = 'socios/socio_confirm_delete.html'
+    success_url = reverse_lazy('socio_list')
 
 # Lista de socios
 class SocioListView(ListView):
     model = Socio
     template_name = 'socios/socio_list.html'
     context_object_name = 'socios'
+    
 # Detalle de un socio
 class SocioDetailView(DetailView):
     model = Socio
@@ -29,15 +53,8 @@ class ClaseDetailView(DetailView):
     template_name = 'socios/clase_detail.html'
     context_object_name = 'clase'
     
-# Vista para actualizar los datos de un socio
-class SocioUpdateView(UpdateView):
+# Vista inicial de la web con los accesos a las diferentes secciones
+class HomeView(ListView):
     model = Socio
-    form_class = SocioForm
-    template_name = 'socios/socio_form.html'
-    success_url = reverse_lazy('socio_list')
-    
-# Vista para eliminar un socio
-class SocioDeleteView(DeleteView):
-    model = Socio
-    template_name = 'socios/socio_confirm_delete.html'
-    success_url = reverse_lazy('socio_list')
+    template_name = 'socios/home.html'
+    context_object_name = 'socios'
