@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Socio(models.Model):
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=300)
     email = models.EmailField(unique=True)
@@ -13,6 +14,7 @@ class Socio(models.Model):
         return f"{self.nombre} {self.apellidos}"
     
 class Entrenador(models.Model):
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=300)
     email = models.EmailField(unique=True)
