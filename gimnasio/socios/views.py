@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, TemplateView
 from .form import SocioForm
 from .models import Clase, Socio
 
@@ -54,7 +54,5 @@ class ClaseDetailView(DetailView):
     context_object_name = 'clase'
     
 # Vista inicial de la web con los accesos a las diferentes secciones
-class HomeView(ListView):
-    model = Socio
+class HomeView(TemplateView):
     template_name = 'socios/home.html'
-    context_object_name = 'socios'
