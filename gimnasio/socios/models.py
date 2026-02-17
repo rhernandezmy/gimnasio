@@ -50,20 +50,22 @@ class Clase(models.Model):
     horario = models.DateTimeField()
     cupo_maximo = models.PositiveIntegerField(default=20)
     
-    # Un entrenador puede dar muchas clases (ForeignKey)
+    # Un entrenador puede dar muchas clases (ForeignKey) y una clase tiene un solo entrenador
     entrenador = models.ForeignKey(Entrenador, on_delete=models.CASCADE, related_name='clases')
     
     # Una clase tiene muchos socios y un socio puede ir a muchas clases (ManyToManyField)
     socios = models.ManyToManyField(Socio, related_name='clases_inscritas', blank=True)
 
     def __str__(self):
-        return f"{self.nombre} - {self.horario}"
+        return f"{self.get_nombre_display()} - {self.horario.strftime('%d/%m %H:%M')}"
+    
     
     def cupo_disponible(self):
-        return self.cupo_maximo - self.socios.count()
+        # Usamos .all().count() para mayor precisión en tiempo real
+        return self.cupo_maximo - self.socios.all().count()
     
     # Sobrescribimos el método save para asignar la descripción predeterminada según el tipo de clase
     def save(self, *args, **kwargs):
-        if not self.descripcion:  # Si no se ha proporcionado una descripción, asignamos la predeterminada
-            self.descripcion = self.DESCRIPCIONES_PREDETERMINADAS.get(self.nombre, '')
+        # Asignamos SIEMPRE la descripción según el nombre elegido
+        self.descripcion = self.DESCRIPCIONES_PREDETERMINADAS.get(self.nombre, 'Sin descripción.')
         super().save(*args, **kwargs)
