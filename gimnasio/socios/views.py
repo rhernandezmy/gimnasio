@@ -81,6 +81,7 @@ class ClaseDetailView(DetailView):
 class HomeView(TemplateView):
     template_name = 'socios/home.html'
 
+# Vista para crear una nueva clase (vista basada en función)
 def clase_create(request):
     if request.method == 'POST':
         form = ClaseForm(request.POST)
