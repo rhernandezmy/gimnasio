@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmar Eliminación de Socio</title>
+</head>
+<body>
+    <h1>Confirmar Eliminación de Socio</h1>
+    <p>¿Estás seguro de que quieres eliminar al socio "{{ socio.nombre }} {{ socio.apellidos }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, Eliminar</button>
+        <a href="{% url 'socio_list' %}">Cancelar</a>
+    </form>
+    <hr>
+         <a href="{% url 'home' %}">Volver a la página de inicio</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario de Socio</title>
+</head>
+<body>
+    <h1>Formulario de Socio</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    <hr>
+         <a href="{% url 'home' %}">Volver a la página de inicio</a>
+</body>
+</html>

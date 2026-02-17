@@ -19,7 +19,7 @@ def socio_create(request):
 class SocioUpdateView(UpdateView):
     model = Socio
     form_class = SocioForm
-    template_name = 'socios/socio_form.html'
+    template_name = 'socios/socio_editar.html'
     success_url = reverse_lazy('socio_list')
     
 # Vista para eliminar un socio

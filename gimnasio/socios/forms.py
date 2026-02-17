@@ -75,3 +75,10 @@ class EntrenadorForm(forms.ModelForm):
              'telefono': forms.TextInput(attrs={'placeholder': 'Ejemplo: 123456789'}),  # Placeholder para el teléfono
              'email': forms.EmailInput(attrs={'placeholder': 'Ejemplo: entrenador@gimnasio.com'}),  # Placeholder para el email
         }
+class SocioUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Socio
+        fields = ['nombre', 'apellidos', 'email', 'telefono', 'fecha_nacimiento', 'activo']  
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),  # Para usar un selector de fecha en el formulario
+        }
