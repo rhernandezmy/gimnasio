@@ -12,8 +12,9 @@ class SocioForm(forms.ModelForm):
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if Socio.objects.filter(email=email).exists():
-            raise forms.ValidationError("Este correo electrónico ya está registrado.")
+        # Si estamos editando, excluimos al socio actual de la comprobación
+        if Socio.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise ValidationError("Este email ya está registrado.")
         return email
     
     def clean_telefono(self):
