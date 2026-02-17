@@ -83,3 +83,7 @@ class SocioUpdateForm(forms.ModelForm):
         widgets = {
             'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),  # Para usar un selector de fecha en el formulario
         }
+        
+class ApuntarClaseForm(forms.Form):
+    socio = forms.ModelChoiceField(queryset=Socio.objects.filter(activo=True), label="Seleccionar Socio")
+    clase = forms.ModelChoiceField(queryset=Clase.objects.all(), label="Seleccionar Clase")

@@ -28,6 +28,10 @@ urlpatterns = [
     path('socios/<int:pk>/editar/', views.SocioUpdateView.as_view(), name='socio_update'),
     path('socios/<int:pk>/eliminar/', views.SocioDeleteView.as_view(), name='socio_delete'),
     
-     # Creación de nuevas clases 
+    # Creación de nuevas clases 
     path('clases/nuevo/', views.clase_create, name='clase_create'),
+    
+    # Apuntar a una clase
+    path('socios/apuntar_clase/<int:pk>/', views.apuntar_clase, name='apuntar_clase'),
+
 ]

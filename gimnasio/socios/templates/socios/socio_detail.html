@@ -3,6 +3,22 @@
 <head>
     <title>Detalle del Socio #{{socio.id }}</title>
 </head>
+    <hr>
+    <h3>Acciones</h3>
+    <!-- Este botón genera el enlace con el ID correcto automáticamente -->
+    <a href="{% url 'apuntar_clase' socio.id %}" style="padding: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+        ➕ Apuntar a una nueva clase
+    </a>
+    
+    <br><br>
+    <a href="{% url 'socio_update' socio.id %}" style="padding: 10px; background-color: #282ca7; color: white; text-decoration: none; border-radius: 5px;">
+        ➕ Editar datos del socio
+    </a>
+    <br><br>
+    <a href="{% url 'socio_delete' socio.id %}" style="padding: 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px;">
+        🗑️ Eliminar socio
+    </a>
+
 <body>
     <h1>Detalle del Socio: #{{socio.id }}</h1>
     <p><strong>Nombre:</strong> {{ socio.nombre }}</p>
@@ -20,6 +36,11 @@
             <li>No está inscrito en ninguna clase.</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'socio_list' %}">Volver a la lista de socios</a>
+    <a href="{% url 'socio_list' %}" style="padding: 10px; background-color: #ee00ff; color: white; text-decoration: none; border-radius: 5px;">
+        📋 Volver a la lista de socios
+    </a>
+    <br><br>
+    <a href="{% url 'home' %}" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+        🏠 Volver a la página de inicio
 </body>
 </html>

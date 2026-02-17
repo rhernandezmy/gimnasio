@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apuntarse a una clase</title>
+</head>
+<body>
+    <h1>Apuntarse a una clase</h1>
+    <p>Apuntarse al socio: {{ socio.nombre }} {{ socio.apellidos }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Apuntarse a la clase</button>
+    </form>
+</body>
+</html>

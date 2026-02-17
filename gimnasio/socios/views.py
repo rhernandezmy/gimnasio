@@ -1,7 +1,8 @@
-from django.shortcuts import redirect, render
+from urllib import request
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, TemplateView
-from .forms import SocioForm, ClaseForm, EntrenadorForm
+from .forms import ApuntarClaseForm, SocioForm, ClaseForm, EntrenadorForm
 from .models import Clase, Entrenador, Socio
 
 # Crear un nuevo socio (vista basada en función)
@@ -89,3 +90,16 @@ def clase_create(request):
     else:
         form = ClaseForm()
     return render(request, 'socios/clase_create.html', {'form': form})
+
+# Vista para apuntar a un socio a una clase
+def apuntar_clase(request): # Ya no recibe pk
+    if request.method == 'POST':
+        form = ApuntarClaseForm(request.POST)
+        if form.is_valid():
+            socio = form.cleaned_data['socio']
+            clase = form.cleaned_data['clase']
+            socio.clases_inscritas.add(clase)
+            return redirect('socio_detail', pk=socio.pk)
+    else:
+        form = ApuntarClaseForm()
+    return render(request, 'socios/apuntar_clase.html', {'form': form})
