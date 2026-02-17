@@ -64,7 +64,7 @@ class Clase(models.Model):
         # Usamos .all().count() para mayor precisión en tiempo real
         return self.cupo_maximo - self.socios.all().count()
     
-    # Sobrescribimos el método save para asignar la descripción predeterminada según el tipo de clase
+    # Asignamos la descripción automáticamente al guardar la clase, según el tipo de clase elegido
     def save(self, *args, **kwargs):
         # Asignamos SIEMPRE la descripción según el nombre elegido
         self.descripcion = self.DESCRIPCIONES_PREDETERMINADAS.get(self.nombre, 'Sin descripción.')
