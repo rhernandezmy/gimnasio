@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado de Entrenadores</title>
+</head>
+<body>
+    <h1>Listado de Entrenadores</h1>
+    <ul>
+        {% for entrenador in entrenadores %}
+            <li>{{ entrenador.nombre }} {{ entrenador.apellidos }} - {{ entrenador.especialidad }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+         <a href="{% url 'home' %}">Volver a la página de inicio</a>
+</body>
+</html>

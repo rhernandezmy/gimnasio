@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # URL para la página de inicio (puede ser una vista basada en función o una vista genérica)
+    # URL para la página de inicio 
     path('', views.HomeView.as_view(), name='home'), 
     
     # Listas y detalles de socios
@@ -14,13 +14,20 @@ urlpatterns = [
     path('clases/', views.ClaseListView.as_view(), name='clase_list'),
     path('clases/<int:pk>/', views.ClaseDetailView.as_view(), name='clase_detail'),
     
-    # Creación de nuevos socios (puede ser una vista basada en función o una vista genérica)
-    path('socios/nuevo/', views.socio_create, name='socio_create'),  # Si usas una vista basada en función para crear socios
+    # Listas y detalles de entrenadores
+    path('entrenadores/', views.EntrenadorListView.as_view(), name='entrenador_list'),
+    path('entrenadores/<int:pk>/', views.EntrenadorDetailView.as_view(), name='entrenador_detail'),
+    
+    # Creación de nuevos socios 
+    path('socios/nuevo/', views.socio_create, name='socio_create'),  
+    
+    # Creación de nuevos entrenadores
+    path('entrenadores/nuevo/', views.entrenador_create, name='entrenador_create'), 
     
     # Actualización y eliminación de socios
-    path('socios/<int:pk>/editar/', views.SocioUpdateView.as_view(), name='socio_edit'),
+    path('socios/<int:pk>/editar/', views.SocioUpdateView.as_view(), name='socio_update'),
     path('socios/<int:pk>/eliminar/', views.SocioDeleteView.as_view(), name='socio_delete'),
     
-     # Creación de nuevas clases (puede ser una vista basada en función o una vista genérica)
-    path('clases/nuevo/', views.clase_create, name='clase_create'),  # Si usas una vista basada en función para crear clases
+     # Creación de nuevas clases 
+    path('clases/nuevo/', views.clase_create, name='clase_create'),
 ]

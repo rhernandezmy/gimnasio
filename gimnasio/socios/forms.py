@@ -1,5 +1,5 @@
 from django import forms
-from .models import Clase, Socio
+from .models import Clase, Entrenador, Socio
 from django.core.exceptions import ValidationError
 
 class SocioForm(forms.ModelForm):
@@ -55,7 +55,23 @@ class SocioForm(forms.ModelForm):
 class ClaseForm(forms.ModelForm):
     class Meta:
         model = Clase
-        fields = ['nombre', 'descripcion', 'horario', 'cupo_maximo', 'entrenador']
+        fields = ['nombre', 'horario', 'cupo_maximo', 'entrenador']
         widgets = {
             'horario': forms.DateTimeInput(attrs={'type': 'datetime-local'}),  # Para usar un selector de fecha y hora en el formulario
+        }
+        
+    def clean_cupo_maximo(self):
+        cupo_maximo = self.cleaned_data.get('cupo_maximo')
+        if cupo_maximo <= 0:
+            raise forms.ValidationError("El cupo máximo debe ser un número positivo.")
+        return cupo_maximo
+
+class EntrenadorForm(forms.ModelForm):
+    class Meta:
+        model = Entrenador
+        fields = ['nombre', 'apellidos', 'email', 'telefono', 'especialidad']
+        widgets = {
+            'especialidad': forms.TextInput(attrs={'placeholder': 'Ejemplo: Yoga, Pilates, etc.'}),  # Placeholder para la especialidad
+             'telefono': forms.TextInput(attrs={'placeholder': 'Ejemplo: 123456789'}),  # Placeholder para el teléfono
+             'email': forms.EmailInput(attrs={'placeholder': 'Ejemplo: entrenador@gimnasio.com'}),  # Placeholder para el email
         }
