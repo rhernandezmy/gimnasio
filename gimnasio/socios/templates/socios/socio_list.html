@@ -15,6 +15,12 @@
             <li>
                 <a href="{% url 'socio_detail' socio.pk %}"><strong>{{ socio.nombre }} {{ socio.apellidos }}</strong></a> 
                 - {{ socio.email }}
+                {% if socio.activo %}
+                    <span style="color: green;">(Activo)</span>
+                {% else %}
+                    <span style="color: red;">(Inactivo)</span>
+                {% endif %}
+                
                 <br>
                 <small>
                     <a href="{% url 'socio_update' socio.pk %}">Editar</a> |
